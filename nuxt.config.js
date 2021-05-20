@@ -14,7 +14,9 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-
+  serverMiddleware: [
+    { path: '/api', handler: '~/server-middleware/getTimeslots.js' },
+  ],
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
   ],

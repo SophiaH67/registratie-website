@@ -13,6 +13,7 @@
     "@nuxtjs/dayjs": "^1.4.0",
     "@nuxtjs/pwa": "^3.3.5",
     "core-js": "^3.9.1",
+    "express": "^4.17.1",
     "nuxt": "^2.15.3"
   },
   "devDependencies": {
