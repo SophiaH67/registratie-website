@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Timeslot v-for="item in this.timeslots" :key="item.startTimeUnix" :startTime="item.startTime" :endTime="item.endTime" :people="item.people" />
+    <Timeslot v-for="item in this.timeslots" :key="item.startTimeUnix" :startTime="item.startTime" :endTime="item.endTime" :people="item.people || []" />
   </div>
 </template>
 
