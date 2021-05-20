@@ -35,7 +35,6 @@ app.all('/getTimeslots', async (req, res) => {
 app.post('/setup', (req, res) => {
   const startTime = req.body.startTime
   const endTime = req.body.endTime
-  const current_time = new Date().getTime()
   const timeslotLength = req.body.timeslotLength
 
   const diffMinutes = (endTime - startTime) / 1000 / 60;
