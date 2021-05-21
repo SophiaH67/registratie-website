@@ -1,0 +1,34 @@
+<template>
+  <div>
+    <SignupDialog
+      :slotID="this.slotID || ''"
+      :title="this.title || ''"
+      :open="this.open || false"
+      :closeDialog="this.closeDialog || function(){}"
+    />
+  </div>
+</template>
+
+<script>
+import SignupDialog from './SignupDialog' 
+export default {
+  name: "SignupDialogController",
+  components: {
+    SignupDialog
+  },
+  data: function () {
+    return {
+      open: false,
+      title: "Title",
+      slotID: "Uhoh"
+    }
+  },
+  methods: {
+    closeDialog() {
+      this.open = false
+    }
+  },
+  async fetch() {
+  }
+}
+</script>

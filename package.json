@@ -13,7 +13,9 @@
     "@nuxtjs/dayjs": "^1.4.0",
     "@nuxtjs/pwa": "^3.3.5",
     "core-js": "^3.9.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
+    "is-base64": "^1.1.0",
     "mongoose": "^5.12.10",
     "nuxt": "^2.15.3"
   },

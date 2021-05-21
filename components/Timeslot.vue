@@ -15,6 +15,7 @@
           <v-btn
             color="primary"
             elevation="2"
+            @click="openDialog()"
           >
             Inschrijven
           </v-btn>
@@ -40,6 +41,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
   name: "Timeslot",
   modules: [
@@ -57,7 +59,21 @@ export default {
     people: {
       type: Array,
       required: true
+    },
+    slotID: {
+      type: String,
+      required: true
     }
-  }  
+  },
+  methods: {
+    async openDialog() {
+      let dialogObject = {
+        slotID: this.slotID,
+        title: `Registreren voor ${this.startTime}`
+      }
+      this.openSignupDialog(dialogObject)
+    },
+    ...mapMutations(['openSignupDialog'])
+  }
 }
 </script>

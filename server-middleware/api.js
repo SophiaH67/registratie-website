@@ -4,9 +4,14 @@ const cors = require('cors');
 const assert = require('assert')
 const mongoose = require('mongoose');
 const Timeslot = require('./models/timeslot');
+const isBase64 = require('is-base64');
 
 app.use(express.json());
 app.use(cors());
+
+const config = {
+  maxAmountOfPeople: 4
+}
 
 const dbhost = process.env.DB_HOST
 const dbpassword = process.env.DB_PASSWORD
@@ -30,6 +35,38 @@ mongoose.connect(dbURL, {
 app.all('/getTimeslots', async (req, res) => {
   timeslots = await Timeslot.find()
   res.send(JSON.stringify(timeslots))
+})
+
+app.all('/addFamily', async (req, res) => {
+  function reject(err) {
+    res.status(400)
+    res.write(JSON.stringify({"error":err}))
+    res.end()
+  }
+  let name = req.body.name
+  let amountOfPeople = req.body.amountOfPeople
+
+  slotID = req.body.slotID
+  try {
+    var timeslot = await Timeslot.findById(slotID)
+  } catch (e) {
+    res.status(400)
+    res.write(JSON.stringify({"error":"Er is iets mis gegaan, herlaad de pagina A.U.B."}))
+    res.end()
+  }
+
+  let newAmountOfPeople = amountOfPeople
+  for (let i = 0; i < timeslot.families.length; i++) {
+    const families = timeslot.families[i];
+    if(el => el[key] === name) return reject("Je bent al ingeschreven voor dit tijdstip")
+    newAmountOfPeople = newAmountOfPeople + family.amountOfPeople
+  }
+  if (newAmountOfPeople > config.maxAmountOfPeople) return reject("Er zijn te veel mensen ingeschreven voor dit moment")
+  
+  console.log(isBase64(stringWithMime, {mimeRequired: true}));
+  // compress pfp
+  // save pfp
+  // save id of pfp in database
 })
 
 app.post('/setup', (req, res) => {
