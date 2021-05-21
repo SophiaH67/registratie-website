@@ -5,6 +5,7 @@ const assert = require('assert')
 const mongoose = require('mongoose');
 const Timeslot = require('./models/timeslot');
 const isBase64 = require('is-base64');
+const sharp = require('sharp');
 
 app.use(express.json());
 app.use(cors());
@@ -45,6 +46,7 @@ app.all('/addFamily', async (req, res) => {
   }
   let name = req.body.name
   let amountOfPeople = req.body.amountOfPeople
+  let picture = req.body.picture
 
   slotID = req.body.slotID
   try {
@@ -62,8 +64,8 @@ app.all('/addFamily', async (req, res) => {
     newAmountOfPeople = newAmountOfPeople + family.amountOfPeople
   }
   if (newAmountOfPeople > config.maxAmountOfPeople) return reject("Er zijn te veel mensen ingeschreven voor dit moment")
-  
-  if(isBase64(stringWithMime, {mimeRequired: true})) reject("Er was een probleem met jouw foto")
+
+  if(!isBase64(picture, {mimeRequired: true})) reject("Er was een probleem met jouw foto")
   // compress pfp
   // save pfp
   // save id of pfp in database
