@@ -36,7 +36,7 @@ mongoose.connect(dbURL, {
   .catch((err) => console.error(err))
 
 app.all('/getTimeslots', async (req, res) => {
-  timeslots = await Timeslot.find()
+  const timeslots = await Timeslot.find().sort({startTimeUnix: 1})
   res.send(JSON.stringify(timeslots))
 })
 
