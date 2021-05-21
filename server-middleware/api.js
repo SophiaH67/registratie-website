@@ -98,13 +98,14 @@ app.post('/setup', (req, res) => {
   const startTime = req.body.startTime
   const endTime = req.body.endTime
   const timeslotLength = req.body.timeslotLength
+  const timeslotLengthMS = req.body.timeslotLength * 60 * 1000
 
   const diffMinutes = (endTime - startTime) / 1000 / 60;
   
   const amountOfTimeslots = Math.floor(diffMinutes / timeslotLength)
   for (let i = 0; i < amountOfTimeslots; i++) {
-    const timeslotStartTime = startTime + i*timeslotLength
-    const timeslotEndTime = endTime + (i+1)*timeslotLength
+    const timeslotStartTime = startTime + i*timeslotLengthMS
+    const timeslotEndTime = timeslotStartTime + timeslotLengthMS
     const timeslot = new Timeslot({
       startTimeUnix: timeslotStartTime,
       endTimeUnix: timeslotEndTime,
