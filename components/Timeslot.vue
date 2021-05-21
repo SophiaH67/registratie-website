@@ -28,7 +28,7 @@
               :key="family.name"
             >
               <img
-                :src="family.picture"
+                :src="`/api/getPicture?id=${family.picture}`"
                 :alt="family.name"
                 :title="family.name"
               >
