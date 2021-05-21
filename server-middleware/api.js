@@ -67,6 +67,13 @@ app.all('/addFamily', async (req, res) => {
 
   if(!isBase64(picture, {mimeRequired: true})) reject("Er was een probleem met jouw foto")
   // compress pfp
+  let parts = picture.split(';');
+  let mimType = parts[0].split(':')[1];
+  let imageData = parts[1].split(',')[1];
+  var img = new Buffer(imageData, 'base64');
+  resizedImageBuffer = await sharp(img).resize(64, 64).toBuffer()
+  let resizedImageData = resizedImageBuffer.toString('base64');
+  let resizedBase64 = `data:${mimType};base64,${resizedImageData}`;
   // save pfp
   // save id of pfp in database
 })
