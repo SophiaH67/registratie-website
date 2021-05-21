@@ -79,7 +79,7 @@ app.all('/addFamily', async (req, res) => {
   const profilePicture = new Picture({
     picture: resizedBase64
   })
-  pictureID = (await profilePicture.save()).res._id
+  pictureID = (await profilePicture.save())._id
   // save id of pfp in database
   let family = {}
   family.name = name
