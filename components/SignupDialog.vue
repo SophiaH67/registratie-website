@@ -23,7 +23,7 @@
                 <v-file-input v-on:change="uploadHandler($event)" accept="image/png, image/jpeg, image/bmp" v-on: label="Foto" prepend-icon="mdi-camera" />
               </v-col>
             </v-row>
-            <v-img :src='pictureb64' />
+            <v-img :src='pictureb64' :width="!pictureb64 ? 0 : undefined" :height="!pictureb64 ? 0 : undefined" />
           </v-container>
         </v-card-text>
         <v-card-actions>
@@ -77,6 +77,7 @@ export default {
       });
     },
     async uploadHandler(event){
+      if(!event) return this.pictureb64 = ""
       const reader = new FileReader();
       reader.readAsDataURL(event);
       reader.onload = () => this.pictureb64 = reader.result;
