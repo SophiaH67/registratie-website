@@ -28,6 +28,7 @@ const dbURL = `mongodb://${dbhost}:27017/${dbname}`
 mongoose.connect(dbURL, {
   auth: { "authSource": "admin" },
   useNewUrlParser: true, useUnifiedTopology: true,
+  useFindAndModify: false,
   user: dbuser,
   pass: dbpassword
 })
@@ -80,6 +81,17 @@ app.all('/addFamily', async (req, res) => {
   })
   pictureID = (await profilePicture.save()).res._id
   // save id of pfp in database
+  let family = {}
+  family.name = name
+  family.amountOfPeople = amountOfPeople
+  family.picture = pictureID
+  Timeslot.findOneAndUpdate(
+    {_id: slotID},
+    {$push: {families: family}}
+  )
+  res.status(200)
+  res.send(JSON.stringify({status:'ok'}))
+  res.end()
 })
 
 app.post('/setup', (req, res) => {
