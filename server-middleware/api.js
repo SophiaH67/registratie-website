@@ -116,4 +116,20 @@ app.post('/setup', (req, res) => {
   
 })
 
+app.get('/getPicture', async (req, res) => {
+  const targetID = req.query.id
+  const pictureData = (await Picture.findById(targetID))?.picture.replace(/^data:image\/webp;base64,/, '')
+  if(!pictureData) {
+    res.status(400)
+    res.end()
+  }
+  const picture = Buffer.from(pictureData, 'base64')
+  
+  res.status(200, {
+    'Content-Type': 'image/png',
+    'Content-Length': picture.length
+  })
+  res.end(picture)
+})
+
 module.exports = app
