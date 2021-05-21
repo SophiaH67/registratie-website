@@ -63,7 +63,7 @@ app.all('/addFamily', async (req, res) => {
   }
   if (newAmountOfPeople > config.maxAmountOfPeople) return reject("Er zijn te veel mensen ingeschreven voor dit moment")
   
-  console.log(isBase64(stringWithMime, {mimeRequired: true}));
+  if(isBase64(stringWithMime, {mimeRequired: true})) reject("Er was een probleem met jouw foto")
   // compress pfp
   // save pfp
   // save id of pfp in database
