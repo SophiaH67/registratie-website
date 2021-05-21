@@ -5,7 +5,7 @@
       :key="item.startTimeUnix"
       :startTime="item.startTime"
       :endTime="item.endTime"
-      :people="item.people || []"
+      :families="item.families || []"
       :slotID="item._id"
       />
   </div>

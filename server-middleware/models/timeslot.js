@@ -10,7 +10,7 @@ const timeslotSchema = new Schema({
     type: Number,
     required: false
   },
-  family: {
+  families: {
     type: [{
       name: String,
       picture: String,

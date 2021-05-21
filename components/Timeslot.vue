@@ -24,13 +24,13 @@
             justify="end"
           >
             <v-avatar
-              v-for="person in people"
-              :key="person.name"
+              v-for="family in families"
+              :key="family.name"
             >
               <img
-                :src="person.picture"
-                :alt="person.name"
-                :title="person.name"
+                :src="family.picture"
+                :alt="family.name"
+                :title="family.name"
               >
             </v-avatar>
           </v-row>
@@ -56,7 +56,7 @@ export default {
       type: String,
       required: true
     },
-    people: {
+    families: {
       type: Array,
       required: true
     },
