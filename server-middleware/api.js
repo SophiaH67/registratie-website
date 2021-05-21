@@ -114,6 +114,8 @@ app.post('/setup', (req, res) => {
     timeslot.save()
       .catch((err) => console.error(err))
   }
+  res.status(200)
+  res.end()
   
 })
 
