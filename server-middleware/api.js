@@ -75,6 +75,10 @@ app.all('/addFamily', async (req, res) => {
   let resizedImageData = resizedImageBuffer.toString('base64');
   let resizedBase64 = `data:image/webp;base64,${resizedImageData}`;
   // save pfp
+  const profilePicture = new Picture({
+    picture: resizedBase64
+  })
+  pictureID = (await profilePicture.save()).res._id
   // save id of pfp in database
 })
 
