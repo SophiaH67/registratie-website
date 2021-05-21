@@ -4,6 +4,7 @@ const cors = require('cors');
 const assert = require('assert')
 const mongoose = require('mongoose');
 const Timeslot = require('./models/timeslot');
+const Picture = require('./models/picture');
 const isBase64 = require('is-base64');
 const sharp = require('sharp');
 
@@ -59,8 +60,8 @@ app.all('/addFamily', async (req, res) => {
 
   let newAmountOfPeople = amountOfPeople
   for (let i = 0; i < timeslot.families.length; i++) {
-    const families = timeslot.families[i];
-    if(el => el[key] === name) return reject("Je bent al ingeschreven voor dit tijdstip")
+    const family = timeslot.families[i];
+    if(family.name === name) return reject("Je bent al ingeschreven voor dit tijdstip")
     newAmountOfPeople = newAmountOfPeople + family.amountOfPeople
   }
   if (newAmountOfPeople > config.maxAmountOfPeople) return reject("Er zijn te veel mensen ingeschreven voor dit moment")
