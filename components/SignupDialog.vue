@@ -74,6 +74,7 @@ export default {
       this.$axios.$post("/api/addFamily", family).then(res => {
         this.closeSignupDialog()
         this.getTimeslots()
+        localStorage.setItem(slotID, res.token)
       })
       .catch(e => {
         if (!e.response.data.error) throw e

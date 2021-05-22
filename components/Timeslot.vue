@@ -13,12 +13,13 @@
       <v-card-actions>
         <v-list-item class="grow">
           <v-btn
-            color="primary"
+            :color="this.registered ? 'error' : 'primary'"
+            :outlined="this.registered"
             elevation="2"
             @click="openDialog()"
-            :disabled="roomLeft <= 0"
+            :disabled="roomLeft <= 0 && !registered"
           >
-            Inschrijven
+            {{ this.registered ? "Uitschrijven" : "Inschrijven"}}
           </v-btn>
           <v-row
             align="center"
@@ -70,6 +71,11 @@ export default {
       required: true
     }
   },
+  data: () => {
+    return {
+      registered: false
+    }
+  },
   methods: {
     async openDialog() {
       let dialogObject = {
@@ -79,7 +85,12 @@ export default {
       }
       this.openSignupDialog(dialogObject)
     },
+    async checkRegistered() {
+      if(!process.browser) return
+      this.registered = !!localStorage.getItem(this.slotID)
+    },
     ...mapMutations("dialog", ['openSignupDialog'])
-  }
+  },
+  created () {this.checkRegistered()}
 }
 </script>
