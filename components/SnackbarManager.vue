@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <v-snackbar v-model="open" :timeout="0">
+    <v-snackbar v-model="open" :timeout="-1">
       {{ text }}
       <template v-slot:action="{ attrs }">
         <v-btn color="blue" text v-bind="attrs" @click="closeSnackbar()">
