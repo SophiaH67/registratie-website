@@ -73,7 +73,7 @@ export default {
       };
       this.$axios.$post("/api/addFamily", family).then(res => {
         if (res?.data?.error) throw new Exception(res.data.error)
-        return closeSignupDialog()
+        return this.closeSignupDialog()
       });
     },
     async uploadHandler(event){
