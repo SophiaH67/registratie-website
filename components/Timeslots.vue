@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Timeslot
-      v-for="item in this.timeslots"
+      v-for="item in timeslots"
       :key="item.startTimeUnix"
       :startTime="item.startTime"
       :endTime="item.endTime"
@@ -13,24 +13,15 @@
 
 <script>
 import Timeslot from './Timeslot';
-import dayjs from 'dayjs';
+import { mapState, mapActions } from "vuex";
 export default {
   components: {
     Timeslot
   },
-  data: function() {
-    return {
-      timeslots: []
-    }
-  },
+  methods: mapActions("timeslots", ["getTimeslots"]),
+  computed: mapState("timeslots", ["timeslots"]),
   async fetch() {
-    let timeslots = await this.$axios.$get('/api/getTimeslots')
-    for(let timeslotIndex in timeslots) {
-      let timeslot = timeslots[timeslotIndex];
-      timeslot.startTime = dayjs(timeslot.startTimeUnix).format('DD MMM HH:mm');
-      timeslot.endTime = dayjs(timeslot.endTimeUnix).format('HH:mm');
-    }
-    this.timeslots = timeslots;
+    await this.getTimeslots()
   }
 }
 </script>
