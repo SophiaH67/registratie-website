@@ -16,7 +16,7 @@
             :color="this.registered ? 'error' : 'primary'"
             :outlined="this.registered"
             elevation="2"
-            @click="openDialog()"
+            @click="onClick()"
             :disabled="roomLeft <= 0 && !registered"
           >
             {{ this.registered ? "Uitschrijven" : "Inschrijven"}}
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 export default {
   name: "Timeslot",
   modules: [
@@ -77,6 +77,9 @@ export default {
     }
   },
   methods: {
+    async onClick () {
+      this.registered ? this.unRegister(this.slotID) : this.openDialog()
+    },
     async openDialog() {
       let dialogObject = {
         slotID: this.slotID,
@@ -89,7 +92,20 @@ export default {
       if(!process.browser) return
       this.registered = !!localStorage.getItem(this.slotID)
     },
-    ...mapMutations("dialog", ['openSignupDialog'])
+    async unRegister(slotID) {
+      if (!this.registered) return this.createSnackbar("Je bent niet geregistreerd, herlaad de pagina")
+      this.$axios.$post("/api/removeFamily", {token: localStorage.getItem(slotID), slotID: slotID}).then(res => {
+        localStorage.removeItem(slotID)
+        this.getTimeslots()
+      })
+      .catch(e => {
+        if (!e.response.data.error) throw e
+        this.createSnackbar(e.response.data.error)
+      })
+    },
+    ...mapMutations("dialog", ['openSignupDialog']),
+    ...mapMutations("snackbar", ['createSnackbar']),
+    ...mapActions("timeslots", ['getTimeslots'])
   },
   created () {this.checkRegistered()}
 }
