@@ -77,7 +77,7 @@ export default {
       })
       .catch(e => {
         if (!e.response.data.error) throw e
-        console.error(e.response.data.error)
+        this.createSnackbar(e.response.data.error)
       })
     },
     async uploadHandler(event){
@@ -88,6 +88,7 @@ export default {
       reader.onerror = error => {throw new Exception(error)}
     },
     ...mapMutations("dialog", ["closeSignupDialog"]),
+    ...mapMutations("snackbar", ["createSnackbar"]),
     ...mapActions("timeslots", ["getTimeslots"]),
   },
 };
