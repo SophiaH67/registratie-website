@@ -49,14 +49,14 @@ import { mapState, mapMutations, mapActions } from "vuex";
 export default {
   name: "SignupDialog",
   modules: ["@nuxtjs/axios"],
-  computed: mapState("dialog", ["title", "slotID", "dialogOpen"]),
+  computed: mapState("dialog", ["title", "slotID", "dialogOpen", "roomLeft"]),
   data: function () {
     return {
       pictureb64: "",
       amountOfPeopleRule: [
         (v) => !!v || "Verplicht",
-        (v) => v >= 1 || "Minimum is 1",
-        (v) => v <= 4 || "Maximum is 4",
+        (v) => v >= 1 || "Minimum is 0",
+        (v) => v <= this.roomLeft || `Maximum is ${this.roomLeft}`,
       ],
       requiredRule: [(v) => !!v || "Verplicht"],
       amountOfPeople: "",
