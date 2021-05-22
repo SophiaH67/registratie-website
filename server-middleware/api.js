@@ -149,4 +149,12 @@ app.get('/getPicture', async (req, res) => {
   res.end(picture)
 })
 
+app.post('/removeFamily', async (req, res) => {
+  const slotID = req.body.slotID
+  const token = req.body.token
+  if (!slotID || !token) res.writeHead(400).end()
+  await Timeslot.updateOne({ _id: slotID }, { $pull: { families: { token: token } }}, { safe: true });
+  res.writeHead(200).end()
+})
+
 module.exports = app
