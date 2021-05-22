@@ -36,7 +36,16 @@ mongoose.connect(dbURL, {
   .catch((err) => console.error(err))
 
 app.all('/getTimeslots', async (req, res) => {
-  const timeslots = await Timeslot.find().sort({startTimeUnix: 1})
+  let timeslots = await Timeslot.find().sort({startTimeUnix: 1}).lean()
+  for (let i = 0; i < timeslots.length; i++) {
+    let timeslot = timeslots[i];
+    let roomLeft = config.maxAmountOfPeople
+    for (let j = 0; j < timeslot.families.length; j++) {
+      const family = timeslot.families[j];
+      roomLeft=roomLeft-family.amountOfPeople
+    }
+    timeslots[i].roomLeft = roomLeft
+  }
   res.send(JSON.stringify(timeslots))
 })
 
