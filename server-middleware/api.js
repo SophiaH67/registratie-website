@@ -41,13 +41,17 @@ app.all('/getTimeslots', async (req, res) => {
     let timeslot = timeslots[i];
     let roomLeft = config.maxAmountOfPeople
     for (let j = 0; j < timeslot.families.length; j++) {
-      const family = timeslot.families[j];
+      let family = timeslot.families[j];
       roomLeft=roomLeft-family.amountOfPeople
+      delete family.token
     }
     timeslots[i].roomLeft = roomLeft
   }
   res.send(JSON.stringify(timeslots))
 })
+
+const rand=()=>Math.random(0).toString(36).substr(2);
+const token=(length)=>(rand()+rand()+rand()+rand()).substr(0,length);
 
 app.all('/addFamily', async (req, res) => {
   function reject(err) {
@@ -94,12 +98,13 @@ app.all('/addFamily', async (req, res) => {
   family.name = name
   family.amountOfPeople = amountOfPeople
   family.picture = pictureID
+  family.token = token(32)
   await Timeslot.findOneAndUpdate(
     {_id: slotID},
     {$push: {families: family}}
   )
   res.status(200)
-  res.send(JSON.stringify({status:'ok'}))
+  res.send(JSON.stringify({token: family.token}))
   res.end()
 })
 

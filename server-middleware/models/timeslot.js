@@ -14,7 +14,8 @@ const timeslotSchema = new Schema({
     type: [{
       name: String,
       picture: String,
-      amountOfPeople: Number
+      amountOfPeople: Number,
+      token: String
     }]
   }
 })
