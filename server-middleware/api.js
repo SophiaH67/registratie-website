@@ -68,19 +68,16 @@ app.all('/addFamily', async (req, res) => {
   if (newAmountOfPeople > config.maxAmountOfPeople) return reject("Er zijn te veel mensen ingeschreven voor dit moment")
 
   if(!isBase64(picture, {mimeRequired: true})) return reject("Er was een probleem met jouw foto")
-  // compress pfp
   let parts = picture.split(';');
   let imageData = parts[1].split(',')[1];
   var img = Buffer.from(imageData, 'base64');
   resizedImageBuffer = await sharp(img).resize(64, 64).webp({quality: 80}).toBuffer()
   let resizedImageData = resizedImageBuffer.toString('base64');
   let resizedBase64 = `data:image/webp;base64,${resizedImageData}`;
-  // save pfp
   const profilePicture = new Picture({
     picture: resizedBase64
   })
   const pictureID = (await profilePicture.save())._id
-  // save id of pfp in database
   let family = {}
   family.name = name
   family.amountOfPeople = amountOfPeople
