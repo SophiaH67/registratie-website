@@ -8,7 +8,7 @@ const Picture = require('./models/picture');
 const isBase64 = require('is-base64');
 const sharp = require('sharp');
 
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));
 app.use(cors());
 
 const config = {
