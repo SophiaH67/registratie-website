@@ -17,7 +17,8 @@
     "express": "^4.17.1",
     "is-base64": "^1.1.0",
     "mongoose": "^5.12.10",
-    "nuxt": "^2.15.3"
+    "nuxt": "^2.15.3",
+    "sharp": "^0.28.2"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.11.3"
