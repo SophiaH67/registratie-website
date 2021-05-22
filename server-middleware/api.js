@@ -82,7 +82,7 @@ app.all('/addFamily', async (req, res) => {
   family.name = name
   family.amountOfPeople = amountOfPeople
   family.picture = pictureID
-  Timeslot.findOneAndUpdate(
+  await Timeslot.findOneAndUpdate(
     {_id: slotID},
     {$push: {families: family}}
   )
