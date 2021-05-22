@@ -71,7 +71,7 @@ app.all('/addFamily', async (req, res) => {
   // compress pfp
   let parts = picture.split(';');
   let imageData = parts[1].split(',')[1];
-  var img = new Buffer(imageData, 'base64');
+  var img = Buffer.from(imageData, 'base64');
   resizedImageBuffer = await sharp(img).resize(64, 64).webp({quality: 80}).toBuffer()
   let resizedImageData = resizedImageBuffer.toString('base64');
   let resizedBase64 = `data:image/webp;base64,${resizedImageData}`;
