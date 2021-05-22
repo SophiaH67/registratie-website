@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 export default {
   name: "SignupDialog",
   modules: ["@nuxtjs/axios"],
@@ -73,7 +73,8 @@ export default {
       };
       this.$axios.$post("/api/addFamily", family).then(res => {
         if (res?.data?.error) throw new Exception(res.data.error)
-        return this.closeSignupDialog()
+        this.closeSignupDialog()
+        this.getTimeslots()
       });
     },
     async uploadHandler(event){
@@ -84,6 +85,7 @@ export default {
       reader.onerror = error => {throw new Exception(error)}
     },
     ...mapMutations("dialog", ["closeSignupDialog"]),
+    ...mapActions("timeslots", ["getTimeslots"]),
   },
 };
 </script>
