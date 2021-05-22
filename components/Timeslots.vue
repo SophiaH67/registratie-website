@@ -7,6 +7,7 @@
       :endTime="item.endTime"
       :families="item.families || []"
       :slotID="item._id"
+      :roomLeft="item.roomLeft"
       />
   </div>
 </template>

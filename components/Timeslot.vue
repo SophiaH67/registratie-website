@@ -16,6 +16,7 @@
             color="primary"
             elevation="2"
             @click="openDialog()"
+            :disabled="roomLeft <= 0"
           >
             Inschrijven
           </v-btn>
@@ -62,6 +63,10 @@ export default {
     },
     slotID: {
       type: String,
+      required: true
+    },
+    roomLeft: {
+      type: Number,
       required: true
     }
   },
