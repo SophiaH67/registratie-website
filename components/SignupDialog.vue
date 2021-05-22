@@ -72,10 +72,13 @@ export default {
         amountOfPeople: parseInt(amountOfPeople),
       };
       this.$axios.$post("/api/addFamily", family).then(res => {
-        if (res?.data?.error) throw new Exception(res.data.error)
         this.closeSignupDialog()
         this.getTimeslots()
-      });
+      })
+      .catch(e => {
+        if (!e.response.data.error) throw e
+        console.error(e.response.data.error)
+      })
     },
     async uploadHandler(event){
       if(!event) return this.pictureb64 = ""
