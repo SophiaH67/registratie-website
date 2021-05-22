@@ -1,6 +1,6 @@
 export const state = () => ({
   text: "",
-  open: true,
+  open: false,
 })
 
 export const mutations = {
