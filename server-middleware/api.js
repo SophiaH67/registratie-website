@@ -56,7 +56,10 @@ app.all('/addFamily', async (req, res) => {
     res.end()
   }
   let name = req.body.name
-  let amountOfPeople = req.body.amountOfPeople
+  if (name.length < 3) reject("Vul een naam in")
+  if (name.length > 50) reject("Uw naam is te lang")
+  let amountOfPeople = parseInt(req.body.amountOfPeople)
+  if(amountOfPeople <= 0) reject("Vul het aantal mensen in")
   let picture = req.body.picture
 
   slotID = req.body.slotID
@@ -64,7 +67,7 @@ app.all('/addFamily', async (req, res) => {
     var timeslot = await Timeslot.findById(slotID)
   } catch (e) {
     res.status(400)
-    res.write(JSON.stringify({"error":"Er is iets mis gegaan, herlaad de pagina A.U.B."}))
+    res.write(JSON.stringify({"error":"Er is iets mis gegaan, herlaad de pagina"}))
     res.end()
   }
 
