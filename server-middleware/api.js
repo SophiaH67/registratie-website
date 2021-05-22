@@ -67,7 +67,7 @@ app.all('/addFamily', async (req, res) => {
   }
   if (newAmountOfPeople > config.maxAmountOfPeople) return reject("Er zijn te veel mensen ingeschreven voor dit moment")
 
-  if(!isBase64(picture, {mimeRequired: true})) reject("Er was een probleem met jouw foto")
+  if(!isBase64(picture, {mimeRequired: true})) return reject("Er was een probleem met jouw foto")
   // compress pfp
   let parts = picture.split(';');
   let imageData = parts[1].split(',')[1];
