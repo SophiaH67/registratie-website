@@ -73,7 +73,7 @@ export default {
       }
       this.openSignupDialog(dialogObject)
     },
-    ...mapMutations(['openSignupDialog'])
+    ...mapMutations("dialog", ['openSignupDialog'])
   }
 }
 </script>

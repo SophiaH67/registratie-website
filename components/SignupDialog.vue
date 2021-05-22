@@ -49,7 +49,7 @@ import { mapState, mapMutations } from "vuex";
 export default {
   name: "SignupDialog",
   modules: ["@nuxtjs/axios"],
-  computed: mapState(["title", "slotID", "dialogOpen"]),
+  computed: mapState("dialog", ["title", "slotID", "dialogOpen"]),
   data: function () {
     return {
       pictureb64: "",
@@ -83,7 +83,7 @@ export default {
       reader.onload = () => this.pictureb64 = reader.result;
       reader.onerror = error => {throw new Exception(error)}
     },
-    ...mapMutations(["closeSignupDialog"]),
+    ...mapMutations("dialog", ["closeSignupDialog"]),
   },
 };
 </script>
