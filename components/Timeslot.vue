@@ -74,7 +74,8 @@ export default {
     async openDialog() {
       let dialogObject = {
         slotID: this.slotID,
-        title: `Registreren voor ${this.startTime}`
+        title: `Registreren voor ${this.startTime}`,
+        roomLeft: this.roomLeft
       }
       this.openSignupDialog(dialogObject)
     },
