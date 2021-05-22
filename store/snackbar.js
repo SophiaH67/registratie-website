@@ -6,7 +6,7 @@ export const state = () => ({
 export const mutations = {
   createSnackbar(state, text) {
     state.text = text
-    state.dialogOpen = true
+    state.open = true
   },
   closeSnackbar(state) {
     state.open = false
