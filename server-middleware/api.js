@@ -5,15 +5,25 @@ const assert = require('assert')
 const mongoose = require('mongoose');
 const Timeslot = require('./models/timeslot');
 const Picture = require('./models/picture');
+const Config = require('./models/config');
 const isBase64 = require('is-base64');
 const sharp = require('sharp');
 
 app.use(express.json({limit: '50mb'}));
 app.use(cors());
 
-const config = {
-  maxAmountOfPeople: 4
-}
+var config
+(async () => {
+  let configRes = await Config.findOne()
+  if(!configRes) {
+    const newConfig = new Config({
+      maxAmountOfPeople: 4,
+      setupDone: false
+    })
+    await newConfig.save()
+  }
+  config = await Config.findOne()
+})()
 
 const dbhost = process.env.DB_HOST
 const dbpassword = process.env.DB_PASSWORD
