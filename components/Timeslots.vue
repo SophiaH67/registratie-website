@@ -8,6 +8,7 @@
       :families="item.families || []"
       :slotID="item._id"
       :roomLeft="item.roomLeft"
+      :registered="item.registered"
       />
   </div>
 </template>

@@ -13,13 +13,13 @@
       <v-card-actions>
         <v-list-item class="grow">
           <v-btn
-            :color="this.registered ? 'error' : 'primary'"
-            :outlined="this.registered"
+            :color="registered ? 'error' : 'primary'"
+            :outlined="registered"
             elevation="2"
             @click="onClick()"
             :disabled="roomLeft <= 0 && !registered"
           >
-            {{ this.registered ? "Uitschrijven" : "Inschrijven"}}
+            {{ registered ? "Uitschrijven" : "Inschrijven"}}
           </v-btn>
           <v-row
             align="center"
@@ -69,11 +69,10 @@ export default {
     roomLeft: {
       type: Number,
       required: true
-    }
-  },
-  data: () => {
-    return {
-      registered: false
+    },
+    registered: {
+      type: Boolean,
+      required: true
     }
   },
   methods: {
@@ -88,10 +87,6 @@ export default {
       }
       this.openSignupDialog(dialogObject)
     },
-    async checkRegistered() {
-      if(!process.browser) return
-      this.registered = !!localStorage.getItem(this.slotID)
-    },
     async unRegister(slotID) {
       if (!this.registered) return this.createSnackbar("Je bent niet geregistreerd, herlaad de pagina")
       this.$axios.$post("/api/removeFamily", {token: localStorage.getItem(slotID), slotID: slotID}).then(res => {
@@ -105,8 +100,9 @@ export default {
     },
     ...mapMutations("dialog", ['openSignupDialog']),
     ...mapMutations("snackbar", ['createSnackbar']),
+    ...mapMutations("timeslots", ['updateRegistered']),
     ...mapActions("timeslots", ['getTimeslots'])
   },
-  created () {this.checkRegistered()}
+  created () {this.updateRegistered()}
 }
 </script>
