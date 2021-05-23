@@ -12,24 +12,6 @@ const sharp = require('sharp');
 app.use(express.json({limit: '50mb'}));
 app.use(cors());
 
-var config
-(async () => {
-  try {
-    var configRes = await Config.findOne()
-  } catch (e) {
-    console.error(e)
-    process.exit(1)
-  }
-  if(!configRes) {
-    const newConfig = new Config({
-      maxAmountOfPeople: 4,
-      setupDone: false
-    })
-    await newConfig.save()
-  }
-  config = await Config.findOne()
-})()
-
 const dbhost = process.env.DB_HOST
 const dbpassword = process.env.DB_PASSWORD
 const dbuser = process.env.DB_USER
@@ -49,6 +31,24 @@ mongoose.connect(dbURL, {
 })
   .then((result) => console.log("\x1b[32m✔\x1b[0m Connected to db"))
   .catch((err) => {console.error(err); process.exit(1)})
+
+var config
+(async () => {
+  try {
+    var configRes = await Config.findOne()
+  } catch (e) {
+    console.error(e)
+    process.exit(1)
+  }
+  if(!configRes) {
+    const newConfig = new Config({
+      maxAmountOfPeople: 4,
+      setupDone: false
+    })
+    await newConfig.save()
+  }
+  config = await Config.findOne()
+})()
 
 app.all('/getTimeslots', async (req, res) => {
   let timeslots = await Timeslot.find().sort({startTimeUnix: 1}).lean()
