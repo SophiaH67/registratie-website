@@ -17,9 +17,14 @@ const dbpassword = process.env.DB_PASSWORD
 const dbuser = process.env.DB_USER
 const dbname = process.env.DB_NAME || "registratie-website"
 
-assert(dbhost, "Please specify a value for DB_HOST")
-assert(dbpassword, "Please specify a value for DB_PASSWORD")
-assert(dbuser, "Please specify a value for DB_USER")
+try {
+  assert(dbhost, "Please specify a value for DB_HOST")
+  assert(dbpassword, "Please specify a value for DB_PASSWORD")
+  assert(dbuser, "Please specify a value for DB_USER")
+} catch (e) {
+  console.error(e)
+  process.exit(1)
+}
 
 const dbURL = `mongodb://${dbhost}:27017/${dbname}`
 mongoose.connect(dbURL, {
