@@ -14,7 +14,12 @@ app.use(cors());
 
 var config
 (async () => {
-  let configRes = await Config.findOne()
+  try {
+    var configRes = await Config.findOne()
+  } catch (e) {
+    console.error(e)
+    process.exit(1)
+  }
   if(!configRes) {
     const newConfig = new Config({
       maxAmountOfPeople: 4,
@@ -43,7 +48,7 @@ mongoose.connect(dbURL, {
   pass: dbpassword
 })
   .then((result) => console.log("\x1b[32m✔\x1b[0m Connected to db"))
-  .catch((err) => console.error(err))
+  .catch((err) => {console.error(err); process.exit(1)})
 
 app.all('/getTimeslots', async (req, res) => {
   let timeslots = await Timeslot.find().sort({startTimeUnix: 1}).lean()
