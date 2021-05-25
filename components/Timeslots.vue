@@ -1,15 +1,31 @@
 <template>
   <div class="container">
-    <Timeslot
-      v-for="item in timeslots"
-      :key="item.startTimeUnix"
-      :startTime="item.startTime"
-      :endTime="item.endTime"
-      :families="item.families || []"
-      :slotID="item._id"
-      :roomLeft="item.roomLeft"
-      :registered="item.registered"
-      />
+    <div>
+      <div>
+        <v-card
+          elevation="2"
+          width="80%"
+          min-width="30rem"
+          max-width="60rem"
+          class="justify-center"
+          style="margin: 1rem"
+        >
+          <v-flex class="pa-10 pb-8 text-center">
+            <v-img src="/header.png" class="mx-auto"/>
+          </v-flex>
+        </v-card>
+      </div>
+      <Timeslot
+        v-for="item in timeslots"
+        :key="item.startTimeUnix"
+        :startTime="item.startTime"
+        :endTime="item.endTime"
+        :families="item.families || []"
+        :slotID="item._id"
+        :roomLeft="item.roomLeft"
+        :registered="item.registered"
+        />
+    </div>
   </div>
 </template>
 
