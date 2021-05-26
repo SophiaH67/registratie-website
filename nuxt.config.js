@@ -46,6 +46,11 @@ export default {
   axios: {
     baseURL: process.env.BASE_URL,
   },
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.BASE_URL
+    }
+  },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
