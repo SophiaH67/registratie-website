@@ -5,10 +5,6 @@ const configSchema = new Schema({
   maxAmountOfPeople: {
     type: Number,
     required: true
-  },
-  setupDone: {
-    type: Boolean,
-    required: true
   }
 })
 

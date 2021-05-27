@@ -48,7 +48,6 @@ var config
   if(!configRes) {
     const newConfig = new Config({
       maxAmountOfPeople: 4,
-      setupDone: false
     })
     await newConfig.save()
   }
@@ -129,7 +128,7 @@ app.all('/addFamily', async (req, res) => {
 })
 
 app.post('/setup', (req, res) => {
-  if(config.setupDone) return res.status(404).end()
+  if (process.env.SETUP !== "TRUE") return res.status(404).end()
   const startTime = req.body.startTime
   const endTime = req.body.endTime
   const timeslotLength = req.body.timeslotLength
@@ -149,11 +148,6 @@ app.post('/setup', (req, res) => {
     timeslot.save()
       .catch((err) => console.error(err))
   }
-  Config.findOneAndUpdate({setupDone: false},{ setupDone: true }).then(()=>{
-    config.setupDone = true
-    res.status(200)
-    res.end()
-  })
 })
 
 app.get('/getPicture', async (req, res) => {
