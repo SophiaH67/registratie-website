@@ -146,6 +146,7 @@ app.post('/setup', (req, res) => {
       family: []
     })
     timeslot.save()
+      .then((res) => console.log(`Added timeslot for ${timeslotStartTime}-${timeslotEndTime}`))
       .catch((err) => console.error(err))
   }
 })
