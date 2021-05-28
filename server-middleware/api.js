@@ -149,6 +149,7 @@ app.post('/setup', (req, res) => {
       .then((res) => console.log(`Added timeslot for ${timeslotStartTime}-${timeslotEndTime}`))
       .catch((err) => console.error(err))
   }
+  res.writeHead(200).end()
 })
 
 app.get('/getPicture', async (req, res) => {
